@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker</title>
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Hind:300" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <h1>Attendance Tracker</h1>
+    <div class="attendance-container">
+        <div class="attendance-column">
+
+            {% for trainee in status1 %}
+                <div>
+                    {% if status1[trainee] == 'signed' %}
+                        <div class="attendance-signed">✅</div>
+                    {% elif status1[trainee] == 'not signed' %}
+                        <div class="attendance-not-signed"> X </div>
+                    {% endif %} 
+                    <span class="name">{{ trainee }} </span>
+                </div>
+
+            {% endfor %}
+            
+        </div>
+        <div class="attendance-column">
+            
+            {% for trainee in status2 %}
+            <div>
+                {% if status2[trainee] == 'signed' %}
+                <div class="attendance-signed">✅</div>
+                {% elif status2[trainee] == 'not signed' %}
+                <div class="attendance-not-signed"> X </div>
+                {% endif %}
+                <span class="name">{{ trainee }} </span>
+            </div>
+            
+            {% endfor %}
+            
+        </div>
+    </div>
+</body>
+
+</html>
