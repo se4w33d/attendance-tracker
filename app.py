@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
+from grabcode import get_attendance_code
 import requests
-import json
-import time
 
 TRAINEES = [
     "CHANEL KOH XUE MEI",
@@ -44,9 +43,15 @@ TRAINEES = [
 
 NUMBER_OF_TRAINEES = len(TRAINEES)
 
+course_run_code = "RA309530"
+
+url = f'https://www.myskillsfuture.gov.sg/api/take-attendance/{course_run_code}'
+
+code_result = get_attendance_code(url) # to get attendanceCode and motCode for the API query
+
 parameters = {
-    "attendanceCode": "BV68743",
-    "motCode": "41"
+    "attendanceCode": code_result[0],
+    "motCode": code_result[1]
 }
 
 
@@ -67,18 +72,7 @@ def index():
 
     # extract the trainee's name from the response
     trainee_attendance = [trainee['name'] for trainee in res]
-    
-
-    # signed_trainees = []
-    # not_signed_trainees = []
-
-    # for trainee in TRAINEES:
-    #     if trainee in trainee_attendance:
-    #         signed_trainees.append(trainee)
-    #     else:
-    #         not_signed_trainees.append(trainee)
    
-
     trainees_status = {}
     for trainee in TRAINEES:
         if trainee in trainee_attendance:
@@ -91,9 +85,4 @@ def index():
 
     print(trainees_status)
     return render_template("index.html", status1=res1, status2=res2)
-
-
-
-# print(signed_trainees)
-# print(not_signed_trainees)
 
