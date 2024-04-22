@@ -43,7 +43,7 @@ TRAINEES = [
 
 NUMBER_OF_TRAINEES = len(TRAINEES)
 
-course_run_code = "RA309530"
+course_run_code = "RA325639"
 
 url = f'https://www.myskillsfuture.gov.sg/api/take-attendance/{course_run_code}'
 
